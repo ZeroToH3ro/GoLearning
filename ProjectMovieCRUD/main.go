@@ -48,8 +48,10 @@ func getMovie(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
 	for _, item := range movies {
-		json.NewEncoder(w).Encode(item)
-		return
+		if item.ID == params["id"] {
+			json.NewEncoder(w).Encode(item)
+			return
+		}
 	}
 }
 
@@ -64,11 +66,11 @@ func createMovie(w http.ResponseWriter, r *http.Request) {
 
 func updateMovie(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	params := mux.Var(r)
+	params := mux.Vars(r)
 
 	for index, item := range movies {
 		if item.ID == params["id"] {
-			movies = append(movies[:index], movies[index+1]...)
+			movies = append(movies[:index], movies[index+1:]...)
 			var movie Movie
 			_ = json.NewDecoder(r.Body).Decode(&movie)
 			movie.ID = params["id"]
@@ -81,16 +83,16 @@ func updateMovie(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	router := mux.NewRouter()
+	r := mux.NewRouter()
 
-	movies.append(movies, movie{id: "1", isbn: "41321", title: "movie one", director: &director{firstname: "john", lastname: "arian"}})
-	movies.append(movies, movie{id: "2", isbn: "43331", title: "movie two", director: &director{firstname: "mark", lastname: "json"}})
+	movies = append(movies, Movie{ID: "1", Isbn: "41321", Title: "movie one", Director: &Director{Firstname: "john", Lastname: "arian"}})
+	movies = append(movies, Movie{ID: "2", Isbn: "43331", Title: "movie two", Director: &Director{Firstname: "mark", Lastname: "json"}})
 
-	router.HandleFunc("/movies", getMovies).Methods("GET")
-	router.HandleFunc("/movies/{id}", getMovie).Methods("GET")
-	router.HandleFunc("/movies", createMovie).Method("POST")
-	router.HandleFunc("/movies/{id}", updateMovie).Method("PUT")
-	router.HandleFunc("/movies/{id}", deleteMovies).Method("DELETE")
+	r.HandleFunc("/movies", getMovies).Methods("GET")
+	r.HandleFunc("/movies/{id}", getMovie).Methods("GET")
+	r.HandleFunc("/movies", createMovie).Methods("POST")
+	r.HandleFunc("/movies/{id}", updateMovie).Methods("PUT")
+	r.HandleFunc("/movies/{id}", deleteMovie).Methods("DELETE")
 
 	fmt.Printf("Starting server at port 8080\n")
 	log.Fatal(http.ListenAndServe(":8080", r))
