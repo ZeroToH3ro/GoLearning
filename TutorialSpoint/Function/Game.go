@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 )
+
 var first_user, second_user string
 
 func input_user() {
@@ -26,7 +27,7 @@ func main() {
 	input_user()
 	fmt.Printf("\nProgress user %s: ", first_user)
 	user_1 := rand_step()
-	fmt.Printf("Progress user %s: ", second_user )
+	fmt.Printf("Progress user %s: ", second_user)
 	user_2 := rand_step()
 
 	if user_1 > user_2 {
