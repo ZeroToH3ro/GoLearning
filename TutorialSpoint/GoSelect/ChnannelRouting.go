@@ -22,8 +22,6 @@ func main() {
 
 	case secondChannel := <-message:
 		fmt.Println("Channel Data: ", secondChannel)
-	default:
-		fmt.Println("Channel is not ready")
 	}
 
 }

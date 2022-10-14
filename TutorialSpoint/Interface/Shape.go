@@ -4,7 +4,7 @@ import "fmt"
 
 // interface
 type Shape interface {
-	area() float32
+	area()
 }
 
 // Rectangle struct implements the interface
@@ -23,14 +23,14 @@ type Triangle struct {
 }
 
 // Triangle provides implementation for area()
-func (t Triangle) area() float32 {
+func (t Triangle) area() int {
 	return 0.5 * t.base * t.height
 }
 
 // access method of the interface
-func calculate(s Shape) float32 {
-	return s.area()
-}
+//func calculate(s Shape)  {
+//	return s.area()
+//}
 
 // main function
 func main() {
@@ -40,8 +40,8 @@ func main() {
 	t := Triangle{8, 12}
 
 	// call calculate() with struct variable rect
-	rectangleArea := calculate(r)
-	fmt.Println("Area of Rectangle:", rectangleArea)
+	//rectangleArea := calculate(r)
+	fmt.Println("Area of Rectangle:")
 
 	triangleArea := calculate(t)
 	fmt.Println("Area of Triangle:", triangleArea)
