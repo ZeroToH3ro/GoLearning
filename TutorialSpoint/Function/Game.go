@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"math/rand"
 )
+var first_user, second_user string
 
 func input_user() {
-	fmt.Println("Enter name of first user: ")
-	var first_user, second_user string
-	fmt.Scanln(&first_user)
-	fmt.Println("Enter name of second user: ")
-	fmt.Scanln(&second_user)
+	fmt.Print("Enter name of first user: ")
+	fmt.Scan(&first_user)
+	fmt.Print("Enter name of second user: ")
+	fmt.Scan(&second_user)
 }
 
 func rand_step() int {
@@ -24,9 +24,9 @@ func rand_step() int {
 }
 func main() {
 	input_user()
-	fmt.Println("\nProgress user 1: ")
+	fmt.Printf("\nProgress user %s: ", first_user)
 	user_1 := rand_step()
-	fmt.Println("Progress user 2: ")
+	fmt.Printf("Progress user %s: ", second_user )
 	user_2 := rand_step()
 
 	if user_1 > user_2 {

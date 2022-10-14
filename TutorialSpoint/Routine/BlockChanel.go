@@ -21,5 +21,5 @@ func receiveData(ch chan string) {
 
 	// receive data from the channel
 	fmt.Println(<-ch)
-
+	
 }
